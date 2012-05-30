@@ -44,18 +44,7 @@
 					  $return = TRUE;
 					}
 					break;
-				/*
-				case 'create_entity':
-					if(include(elgg_get_plugins_path() . 'views_counter/create_demo_entity.php')){
-					  $return = TRUE;
-					}
-					break;
-				case 'demo':
-					if(include(elgg_get_plugins_path() . 'views_counter/demo.php')){
-					  $return = TRUE;
-					}
-					break;
-				*/
+
 				case 'views_statistics':
 					set_input('entity_guid',$page[1]);
 					if(include(elgg_get_plugins_path() . 'views_counter/views_statistics.php')){
