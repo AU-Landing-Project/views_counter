@@ -2,6 +2,9 @@
 
 x.x:
 
+1.2 ():
+ - fixes php warning when foreach called on nonarray
+
 1.1 (05/30/2012):
 
 - Forces metastring creation on activation to prevent possible sql exception
