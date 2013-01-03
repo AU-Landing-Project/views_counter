@@ -111,7 +111,8 @@
 	    
 		$add_views_counter = unserialize(elgg_get_plugin_setting('add_views_counter','views_counter'));
 		
-		foreach ($add_views_counter as $subtype) {
+		if (is_array($add_views_counter) && count($add_views_counter)) {
+		  foreach ($add_views_counter as $subtype) {
 			switch ($subtype){
 			  case '':			    
 			  break;
@@ -128,6 +129,7 @@
 			    elgg_extend_view('object/'.$subtype,'views_counter',490);
 			  break;
 			}
+		  }
 		}
 	}
 	
