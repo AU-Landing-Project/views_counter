@@ -1,4 +1,4 @@
-Views-Counter-1.8.x
+Views Counter
 ===================
 
-Log number of views per user on various entities for Elgg 1.8
+Log number of views per user on various entities for Elgg
