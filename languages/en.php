@@ -1,12 +1,17 @@
 <?php
 
 return array(
+	'admin:views_counter' => "Views Counter",
+	'admin:views_counter:stats' => "Stats",
+	'admin:views_counter:entities' => "Entity Stats",
+	'admin:statistics:views_counter' => "Views counter",
+	'views_counter:stats:none' => "There are no views for this entity",
 	'views_counter' => 'Views counter',
-	'views_counter:add_counter_explanation' => 'If You add manually the function "add_views_counter()" for an entity then the plugin settings will be updated automatically.<br />If You use the view: "views_counter/add.php" the views_counter plugin will try to add a views counter for the entity full view file based on the elgg patterns for displaying entities',
+	'views_counter:add_counter_explanation' => 'If You add manually the function "add_views_counter()" for an entity then the plugin settings will be updated automatically.<br />If You use the view: "views_counter/add" the views_counter plugin will try to add a views counter for the entity full view file based on the elgg patterns for displaying entities',
 	'views_counter:admin_page' => 'Views counter admin page',
 	'views_counter:add_views_counter' => 'Add views counter to:',
 	'views_counter:container_id' => 'Views counter container ID',
-	'views_counter:container_id_explanation' => 'If defined the views number will be displayed inside this container via Javascript',
+	'views_counter:container_id_explanation' => 'Enter a jquery selector.  If defined the views number will be displayed inside this container via Javascript.  eg. div#container',
 	'views_counter:display_views_counter' => 'Display views counter',
 	'views_counter:doc' => 'Views counter doc',
 	'views_counter:first_view' => 'First view',

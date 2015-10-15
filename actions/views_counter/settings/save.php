@@ -18,7 +18,7 @@ $params = get_input('params');
 $plugin_id = get_input('plugin_id');
 $plugin = elgg_get_plugin_from_id($plugin_id);
 
-if (!($plugin instanceof ElggPlugin)) {
+if (!($plugin instanceof \ElggPlugin)) {
 	register_error(elgg_echo('plugins:settings:save:fail', array($plugin_id)));
 	forward(REFERER);
 }
@@ -33,7 +33,13 @@ $removed_types = unserialize(elgg_get_plugin_setting('remove_views_counter', PLU
 $removed_types = ($removed_types) ? ($removed_types) : array();
 
 // Get the previous added types
-$previous_types = unserialize($plugin->add_views_counter);
+$previous_types_str = $plugin->add_views_counter;
+if ($previous_types_str) {
+	$previous_types = unserialize($previous_types_str);
+}
+else {
+	$previous_types = array();
+}
 
 // Checking which types were removed for the admin right now and include them in the remove_views_counter array
 foreach ($previous_types as $previous_type) {

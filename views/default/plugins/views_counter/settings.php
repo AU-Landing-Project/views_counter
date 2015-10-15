@@ -1,8 +1,6 @@
 <?php
-/**
- * @file views/default/settings/views_counter/edit.php
- * @brief Shows the settings form for the views_counter plugin
- */
+
+	namespace AU\ViewsCounter;
 ?>
 
 <h3><?php echo elgg_echo('views_counter:add_views_counter'); ?></h3>
@@ -13,7 +11,12 @@
 <table>
 	<?php
 	// Get the previous selected type for add views counter
-	$add_views_counter_values = unserialize(elgg_get_plugin_setting('add_views_counter', 'views_counter'));
+	if ($vars['entity']->add_views_counter) {
+		$add_views_counter_values = unserialize($vars['entity']->add_views_counter);
+	}
+	else {
+		$add_views_counter_values = array();
+	}
 
 	// Get the valid types that the views counter may be added on
 	$valid_types = get_valid_types_for_views_counter();
@@ -48,12 +51,16 @@
 
 <br />
 <div>
-	<div class="views_counter_settings_left">
+	<div class="pam">
 		<h3><?php echo elgg_echo('views_counter:container_id'); ?></h3>
 		<?php
 		// Setting container ID input
-		$value = elgg_get_plugin_setting('views_counter_container_id', 'views_counter');
-		echo elgg_view('input/text', array('name' => 'params[views_counter_container_id]', 'value' => $value, 'class' => 'container_id_input'));
+		$value = elgg_get_plugin_setting('views_counter_container_id', PLUGIN_ID);
+		echo elgg_view('input/text', array(
+			'name' => 'params[views_counter_container_id]',
+			'value' => $vars['entity']->views_counter_container_id,
+			'class' => 'container_id_input'
+		));
 		?>
 		<br />
 		<span class="reduced_text"><?php echo elgg_echo('views_counter:container_id_explanation'); ?></span>
@@ -62,48 +69,45 @@
 
 		<h3><?php echo elgg_echo('views_counter:float_direction'); ?></h3>
 		<?php
-		$value = elgg_get_plugin_setting('float_direction', 'views_counter');
-		if (!$value) {
-			$value = 'right';
-			elgg_set_plugin_setting('float_direction', 'right', 'views_counter');
-		}
 		$options = array(
 			elgg_echo('views_counter:left') => 'float_left',
 			elgg_echo('views_counter:right') => 'float_right',
 			elgg_echo('views_counter:no_float') => 'none',
 		);
-		echo elgg_view('input/radio', array('name' => 'params[float_direction]', 'options' => $options, 'value' => $value));
+		echo elgg_view('input/radio', array(
+			'name' => 'params[float_direction]',
+			'value' => $vars['entity']->float_direction ? $vars['entity']->float_direction : 'right',
+			'options' => $options,
+		));
 		?>
 	</div>
 
-	<div class="views_counter_settings_right">
+	<div class="pam">
 		<h3><?php echo elgg_echo('views_counter:display_views_counter'); ?></h3>
 		<?php
-		$value = elgg_get_plugin_setting('display_views_counter', 'views_counter');
-		if (!$value) {
-			$value = 'yes';
-			elgg_set_plugin_setting('display_views_counter', 'yes', 'views_counter');
-		}
 		$options = array(
 			elgg_echo('views_counter:yes') => 'yes',
 			elgg_echo('views_counter:no') => 'no',
 		);
-		echo elgg_view('input/radio', array('name' => 'params[display_views_counter]', 'options' => $options, 'value' => $value));
+		echo elgg_view('input/radio', array(
+			'name' => 'params[display_views_counter]',
+			'value' => $vars['entity']->display_views_counter ? $vars['entity']->display_views_counter : 'yes',
+			'options' => $options
+		));
 		?>
 		<br />
 
 		<h3><?php echo elgg_echo('views_counter:remove_class'); ?></h3>
 		<?php
-		$value = elgg_get_plugin_setting('remove_css_class', 'views_counter');
-		if (!$value) {
-			$value = 'no';
-			elgg_set_plugin_setting('remove_css_class', 'no', 'views_counter');
-		}
 		$options = array(
 			elgg_echo('views_counter:yes') => 'yes',
 			elgg_echo('views_counter:no') => 'no',
 		);
-		echo elgg_view('input/radio', array('name' => 'params[remove_css_class]', 'options' => $options, 'value' => $value));
+		echo elgg_view('input/radio', array(
+			'name' => 'params[remove_css_class]',
+			'value' => $vars['entity']->remove_css_class ? $vars['entity']->remove_css_class : 'no',
+			'options' => $options
+		));
 		?>
 	</div>
 	<div class="clearfloat"></div>

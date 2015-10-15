@@ -87,18 +87,6 @@
 	background-color: #FFFFFF;
 }
 
-.views_counter_settings_left {
-	float: left;
-	width: 49%;
-	padding-right: 5px;
-	border-right: solid 1px #999999;
-}
-
-.views_counter_settings_right {
-	float: left;
-	width: 49%;
-	margin-left: 5px;
-}
 
 .container_id_input {
 	width: 175px;

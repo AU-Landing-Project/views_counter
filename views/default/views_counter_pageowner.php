@@ -4,8 +4,11 @@ namespace AU\ViewsCounter;
 
 $view_override = elgg_get_config('views_counter_view_override');
 
-if (is_array($view_override) && in_array($view_orig, $view_override)) {
-	$vars['views_counter_full_view_override'] = true;
+$vars['views_counter_full_view_override'] = true;
+
+if (!$vars['entity']) {
+	// the entity isn't set yet...
+	$vars['entity'] = elgg_get_page_owner_entity();
 }
 
 // Add the views counter to any elgg entity
