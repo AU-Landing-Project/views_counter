@@ -11,5 +11,5 @@ namespace AU\ViewsCounter;
 $entity_guid = (get_input('entity_guid')) ? (get_input('entity_guid')) : ($vars['entity']->guid);
 
 if ($entity_guid && ($vars['full_view'] || $vars['views_counter_full_view_override'])) {
-	add_views_counter($vars['entity']->guid);
+	add_views_counter($entity_guid);
 }	
