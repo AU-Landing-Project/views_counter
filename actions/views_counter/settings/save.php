@@ -55,6 +55,8 @@ $plugin->setSetting('remove_views_counter', serialize($removed_types));
 // Save the add_views_counter settings as a serialized value
 $params['add_views_counter'] = serialize($params['add_views_counter']);
 
+$params['add_views_logger'] = serialize((array) $params['add_views_logger']);
+
 foreach ($params as $k => $v) {
 	$result = $plugin->setSetting($k, $v);
 	if (!$result) {

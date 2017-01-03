@@ -5,14 +5,6 @@
 	 */
 ?>
 
-.settings_column {
-	width: 200px;
-}
-
-.reduced_text {
-	font-size: 70%;
-}
-
 .views_counter_left_column {
 	float: left;
 	width: 49%;

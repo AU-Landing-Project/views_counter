@@ -2,17 +2,42 @@
 
 namespace AU\ViewsCounter;
 
-$entity_guid = ($vars['entity']) ? ($vars['entity']->guid) : $vars['entity_guid'];
-$entity = get_entity($entity_guid);
+$entity_guid = elgg_extract('entity_guid', $vars);
+if ($entity_guid) {
+	$entity = get_entity($entity_guid);
+} else {
+	$entity = elgg_extract('entity', $vars);
+}
 
-if (!$entity || (!$vars['full_view'] && !$vars['views_counter_full_view_override'])) {
+if (!elgg_instanceof($entity)) {
 	return;
 }
 
-if (elgg_get_config('views_counter_' . $entity_guid)) {
+$full_view = elgg_extract('full_view', $vars);
+$full_view_ignore = elgg_extract('views_counter_full_view_override');
+
+if (!$full_view && !$full_view_ignore) {
+	return;
+}
+
+if ($entity->type == 'object') {
+	$subtype = $entity->getSubtype();
+} else {
+	$subtype = $entity->type;
+}
+
+$added_types = unserialize(elgg_get_plugin_setting('add_views_counter', PLUGIN_ID));
+$removed_types = unserialize(elgg_get_plugin_setting('remove_views_counter', PLUGIN_ID));
+
+if (!in_array($subtype, $added_types) || in_array($subtype, $removed_types)) {
+	return;
+}
+
+if (elgg_get_config('views_counter_' . $entity->guid)) {
 	return; // we've already rendered this once this page
 }
-elgg_set_config('views_counter_' . $entity_guid, true);
+
+elgg_set_config('views_counter_' . $entity->guid, true);
 
 $target = elgg_get_plugin_setting('views_counter_container_id', PLUGIN_ID);
 $display = elgg_get_plugin_setting('display_views_counter', PLUGIN_ID);
@@ -32,11 +57,11 @@ $span_attr = array(
 	'data-target' => $target
 );
 
-$content = get_views_counter($entity_guid) . ' ' . elgg_echo('views_counter:views');
+$content = get_views_counter($entity->guid) . ' ' . elgg_echo('views_counter:views');
 if (elgg_is_admin_logged_in()) {
 	$content = elgg_view('output/url', array(
 		'text' => $content,
-		'href' => 'admin/views_counter/stats?guid=' . $entity_guid
+		'href' => 'admin/views_counter/stats?guid=' . $entity->guid
 	));
 }
 

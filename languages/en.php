@@ -7,9 +7,8 @@ return array(
 	'admin:statistics:views_counter' => "Views counter",
 	'views_counter:stats:none' => "There are no views for this entity",
 	'views_counter' => 'Views counter',
-	'views_counter:add_counter_explanation' => 'If You add manually the function "add_views_counter()" for an entity then the plugin settings will be updated automatically.<br />If You use the view: "views_counter/add" the views_counter plugin will try to add a views counter for the entity full view file based on the elgg patterns for displaying entities',
 	'views_counter:admin_page' => 'Views counter admin page',
-	'views_counter:add_views_counter' => 'Add views counter to:',
+	'views_counter:add_views_counter' => 'Enable counting and/or logging',
 	'views_counter:container_id' => 'Views counter container ID',
 	'views_counter:container_id_explanation' => 'Enter a jquery selector.  If defined the views number will be displayed inside this container via Javascript.  eg. div#container',
 	'views_counter:display_views_counter' => 'Display views counter',
@@ -34,4 +33,18 @@ return array(
 	'views_counter:views_by_user' => 'Views<br />by this user',
 	'views_counter:views_statistics' => 'Views statistics',
 	'views_counter:yes' => 'Yes',
+
+	'views_counter:entity_type' => 'Entity type',
+	'views_counter:enable_counter' => 'View counter',
+	'views_counter:enable_logger' => 'View log',
+	'views_counter:log_time' => 'Time logged',
+
+	'table_columns:fromView:views_counter_id' => 'ID',
+	'table_columns:fromView:views_counter_title' => 'Item',
+	'table_columns:fromView:views_counter_viewer' => 'Viewer',
+	'table_columns:fromView:views_counter_views' => 'Views',
+	'table_columns:fromView:views_counter_last_view' => 'Last viewed',
+	'table_columns:fromView:views_counter_first_view' => 'First viewed',
+	'table_columns:fromView:views_counter_ip' => 'IP Address',
+	
 );
