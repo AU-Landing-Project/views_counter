@@ -1,9 +1,11 @@
 <?php
 
 $item = elgg_extract('item', $vars);
-if (!$item instanceof ElggAnnotation) {
-	return;
+if ($item instanceof ElggAnnotation) {
+	echo $item->entity_guid;
+} else if ($item instanceof ElggEntity) {
+	echo $item->guid;
 }
 
-echo $item->entity_guid;
+
 

@@ -227,12 +227,13 @@ function add_views_counter($entity_guid) {
 }
 
 /**
- * Return an array of entities ordered by the number of views
+ * Add clauses to ege* options to sort entities by views count
  * 
  * @param array $options ege* options
- * @return ElggEntity[]|int|false
+ * @return array
  */
-function get_entities_by_views_counter($options) {
+function add_views_counter_clauses(array $options = []) {
+
 	$dbprefix = elgg_get_config('dbprefix');
 
 	// Select the sum of the views counter returned by the JOIN
@@ -269,10 +270,18 @@ function get_entities_by_views_counter($options) {
 	// Group the result of JOIN annotations by entity because each entity may have infinite annotations "generic_rate"
 	$options['group_by'] .= ' e.guid ';
 
-	// Let the elgg_get_entities() function make do work for us :)
-	$entities = elgg_get_entities($options);
+	return $options;
+}
 
-	return $entities;
+/**
+ * Return an array of entities ordered by the number of views
+ * 
+ * @param array $options ege* options
+ * @return ElggEntity[]|int|false
+ */
+function get_entities_by_views_counter(array $options = []) {
+	$options = add_views_counter_clauses($options);
+	return elgg_get_entities($options);
 }
 
 /**

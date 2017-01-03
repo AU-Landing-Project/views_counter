@@ -10,15 +10,10 @@ namespace AU\ViewsCounter;
 
 $entity = elgg_extract('entity', $vars);
 if (!$entity) {
-	$entity_guid = get_input('entity_guid');
-	$entity = get_entity($entity_guid);
-}
-
-if (!$entity) {
 	forward('', '404');
 }
 
-$viewer_guid = elgg_extract('viewer_guid', $vars, get_input('viewer_guid'));
+$viewer_guid = elgg_extract('viewer_guid', $vars);
 
 if ($viewer_guid) {
 	echo elgg_list_entities([

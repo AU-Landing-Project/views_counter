@@ -24,7 +24,8 @@ return array(
 	'views_counter:views' => 'Views',
 	'views_counter:views_by_user' => 'Views<br />by this user',
 	'views_counter:views_statistics' => 'Views statistics',
-
+	'views_counter:list_entities:no_results' => 'No entities of this type were created yet',
+	
 	'views_counter:views_count' => '%s views',
 	
 	'views_counter:entity_type' => 'Entity type',
