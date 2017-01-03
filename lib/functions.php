@@ -217,28 +217,9 @@ function add_views_counter($entity_guid) {
 		return;
 	}
 
-	// Get the added types for add a views counter
-	$added_types = unserialize(elgg_get_plugin_setting('add_views_counter', PLUGIN_ID));
-
-	// Get the types set up by the admin to not allow the views counter
-	$removed_types = unserialize(elgg_get_plugin_setting('remove_views_counter', PLUGIN_ID));
-
-	// Add a view log entry
-	$logged_types = unserialize(elgg_get_plugin_setting('add_views_logger', PLUGIN_ID));
-	$add_log = in_array($subtype, $logged_types);
-
-	// If the entity has a added type then increment the views counter
-	if (in_array($subtype, $added_types)) {
-		return increment_views_counter($entity->guid, $add_log);
-	} else if (!in_array($subtype, $removed_types)) {
-
-		// If the views counter is being added for a subtype that was not set up
-		// by the admin then let's set the plugin setting now
-		if (!in_array($subtype, $added_types)) {
-			$added_types[] = $subtype;
-			elgg_set_plugin_setting('add_views_counter', serialize($added_types), PLUGIN_ID);
-		}
-
+	if (is_views_counter_enabled($entity)) {
+		$logged_types = unserialize(elgg_get_plugin_setting('add_views_logger', PLUGIN_ID));
+		$add_log = in_array($subtype, $logged_types);
 		return increment_views_counter($entity->guid, $add_log);
 	}
 
@@ -363,7 +344,7 @@ function did_see_last_update($entity_guid, $user_guid = null) {
 	if (!$entity) {
 		return;
 	}
-	
+
 	$last_view_time = get_last_view_time($entity->guid, $user_guid);
 	if ($last_view_time === false) {
 		return false; // hasn't seen entity yet
@@ -392,4 +373,40 @@ function get_ip() {
 	}
 
 	return $ip_address;
+}
+
+/**
+ * Check if views counter is enabled for an entity
+ * 
+ * @param \ElggEntity $entity Entity
+ * @return bool
+ */
+function is_views_counter_enabled(\ElggEntity $entity) {
+
+	if ($entity->type == 'object') {
+		$subtype = $entity->getSubtype();
+	} else {
+		$subtype = $entity->type;
+	}
+
+	$added_types_setting = elgg_get_plugin_setting('add_views_counter', PLUGIN_ID);
+	$removed_types_setting = elgg_get_plugin_setting('remove_views_counter', PLUGIN_ID);
+
+	$added_types = $added_types_setting ? unserialize($added_types_setting) : [];
+	$removed_types = $removed_types_setting ? unserialize($removed_types_setting) : [];
+
+	if (in_array($subtype, $added_types)) {
+		return true;
+	} else if (!in_array($subtype, $removed_types)) {
+		// If the views counter is being added for a subtype that was not set up
+		// by the admin then let's set the plugin setting now
+		if (!in_array($subtype, $added_types)) {
+			$added_types[] = $subtype;
+			elgg_set_plugin_setting('add_views_counter', serialize($added_types), PLUGIN_ID);
+		}
+
+		return true;
+	}
+
+	return false;
 }

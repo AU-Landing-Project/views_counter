@@ -9,7 +9,7 @@ if ($entity_guid) {
 	$entity = elgg_extract('entity', $vars);
 }
 
-if (!elgg_instanceof($entity)) {
+if (!elgg_instanceof($entity) || !is_views_counter_enabled($entity)) {
 	return;
 }
 
@@ -17,19 +17,6 @@ $full_view = elgg_extract('full_view', $vars);
 $full_view_ignore = elgg_extract('views_counter_full_view_override');
 
 if (!$full_view && !$full_view_ignore) {
-	return;
-}
-
-if ($entity->type == 'object') {
-	$subtype = $entity->getSubtype();
-} else {
-	$subtype = $entity->type;
-}
-
-$added_types = unserialize(elgg_get_plugin_setting('add_views_counter', PLUGIN_ID));
-$removed_types = unserialize(elgg_get_plugin_setting('remove_views_counter', PLUGIN_ID));
-
-if (!in_array($subtype, $added_types) || in_array($subtype, $removed_types)) {
 	return;
 }
 
