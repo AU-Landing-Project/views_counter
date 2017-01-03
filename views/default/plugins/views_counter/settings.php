@@ -82,6 +82,6 @@ echo elgg_view_field([
 	'value' => $entity->display_views_counter ? $entity->display_views_counter : 'yes',
 	'options' => array(
 		elgg_echo('option:yes') => 'yes',
-		elgg_echo('views_counter:no') => 'no',
+		elgg_echo('option:no') => 'no',
 	),
 ]);
