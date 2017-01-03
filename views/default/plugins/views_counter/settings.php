@@ -76,45 +76,12 @@ $valid_types = get_valid_types_for_views_counter();
 
 <?php
 echo elgg_view_field([
-	'#type' => 'text',
-	'#label' => elgg_echo('views_counter:container_id'),
-	'#help' => elgg_echo('views_counter:container_id_explanation'),
-	'name' => 'params[views_counter_container_id]',
-	'value' => $entity->views_counter_container_id,
-	'class' => 'container_id_input'
-]);
-
-
-echo elgg_view_field([
-	'#type' => 'radio',
-	'#label' => elgg_echo('views_counter:float_direction'),
-	'name' => 'params[float_direction]',
-	'value' => $entity->float_direction ? $entity->float_direction : 'right',
-	'options' => array(
-		elgg_echo('views_counter:left') => 'float_left',
-		elgg_echo('views_counter:right') => 'float_right',
-		elgg_echo('views_counter:no_float') => 'none',
-	),
-]);
-
-echo elgg_view_field([
 	'#type' => 'radio',
 	'#label' => elgg_echo('views_counter:display_views_counter'),
 	'name' => 'params[display_views_counter]',
 	'value' => $entity->display_views_counter ? $entity->display_views_counter : 'yes',
 	'options' => array(
-		elgg_echo('views_counter:yes') => 'yes',
-		elgg_echo('views_counter:no') => 'no',
-	),
-]);
-
-echo elgg_view_field([
-	'#type' => 'radio',
-	'#label' => elgg_echo('views_counter:remove_class'),
-	'name' => 'params[remove_css_class]',
-	'value' => $entity->remove_css_class ? $entity->remove_css_class : 'no',
-	'options' => array(
-		elgg_echo('views_counter:yes') => 'yes',
+		elgg_echo('option:yes') => 'yes',
 		elgg_echo('views_counter:no') => 'no',
 	),
 ]);

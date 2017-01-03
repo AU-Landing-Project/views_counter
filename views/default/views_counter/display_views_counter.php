@@ -20,40 +20,35 @@ if (!$full_view && !$full_view_ignore) {
 	return;
 }
 
-if (elgg_get_config('views_counter_' . $entity->guid)) {
-	return; // we've already rendered this once this page
-}
-
-elgg_set_config('views_counter_' . $entity->guid, true);
-
-$target = elgg_get_plugin_setting('views_counter_container_id', PLUGIN_ID);
 $display = elgg_get_plugin_setting('display_views_counter', PLUGIN_ID);
-
-
-$classes = array('views-counter-container');
-$classes[] = get_views_counter_class();
-if ($target || ($display == 'no')) {
-	$classes[] = 'hidden';
-}
-$classes = array_unique($classes);
-$classes = array_map('trim', $classes);
-
-$span_attr = array(
-	'class' => implode(' ', $classes),
-	'data-guid' => $entity->guid,
-	'data-target' => $target
-);
-
-$content = get_views_counter($entity->guid) . ' ' . elgg_echo('views_counter:views');
-if (elgg_is_admin_logged_in()) {
-	$content = elgg_view('output/url', array(
-		'text' => $content,
-		'href' => 'admin/views_counter/stats?guid=' . $entity->guid
-	));
+if (!$display) {
+	return;
 }
 
-echo '<span ' . elgg_format_attributes($span_attr) . '>' . $content . '</span>';
+elgg_register_plugin_hook_handler('register', 'menu:entity', function($hook, $type, $return, $params) use ($entity) {
 
-// Include the js code for views counter
-//echo elgg_view('js/views_counter',$vars);
-elgg_require_js('views_counter');
+	$hook_entity = elgg_extract('entity', $params);
+
+	if ($hook_entity->guid != $entity->guid) {
+		return;
+	}
+
+	$text = elgg_echo('views_counter:views_count', [get_views_counter($entity->guid)]);
+	
+	$href = false;
+	if (elgg_is_admin_logged_in()) {
+		$href = "admin/views_counter/stats?guid=$entity->guid";
+	}
+	
+	$return[] = \ElggMenuItem::factory([
+		'name' => 'views_counter',
+		'text' => $text,
+		'href' => $href,
+		'data-guid' => $entity->guid,
+		'class' => 'views-counter',
+		'priority' => 50,
+	]);
+
+	return $return;
+
+}, 100);

@@ -276,28 +276,6 @@ function get_entities_by_views_counter($options) {
 }
 
 /**
- * Get the CSS class to be applied to the views counter display
- * @return string
- */
-function get_views_counter_class() {
-	$class = [];
-
-	$remove_css = elgg_get_plugin_setting('remove_css_class', PLUGIN_ID);
-	if (!$remove_css || $remove_css == 'no') {
-		$class[] = 'views_counter';
-	}
-
-	$float = elgg_get_plugin_setting('float_direction', 'views_counter');
-	if ($float == 'none') {
-		$float = '';
-	}
-
-	$class[] = $float;
-
-	return implode(' ', $class);
-}
-
-/**
  * The the last time the user viewed the entity
  * 
  * @param int $entity_guid GUID of the entity
