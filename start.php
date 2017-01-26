@@ -16,8 +16,6 @@ function init() {
 	set_views_counter();
 
 	elgg_register_page_handler('views_counter', __NAMESPACE__ . '\\views_counter_page_handler');
-	elgg_extend_view('css/elgg', 'css/views_counter');
-	elgg_extend_view('css/admin', 'css/views_counter');
 
 	elgg_register_action('views_counter/settings/save', __DIR__ . '/actions/views_counter/settings/save.php', 'admin');
 	
